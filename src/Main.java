@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        if (args.length < 1) {
+            throw new IllegalArgumentException("Please provide a path to the FIX message file.");
+        }
         FixParser parser = FixParser.create();
         Path fixMessagesPath = Paths.get(args[0]);
         try {
@@ -17,7 +20,7 @@ public class Main {
                     .map(message -> parser.parse(message.getBytes(StandardCharsets.US_ASCII)))
                     .forEach(System.out::println);
         } catch (IOException e) {
-            throw new IOException("Error occurs when reading FIX message file", e);
+            throw new IOException("Error occurs when reading FIX message file.", e);
         }
     }
 }
