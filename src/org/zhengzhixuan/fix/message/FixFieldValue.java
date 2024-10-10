@@ -14,4 +14,9 @@ public class FixFieldValue {
     public String getValue() {
         return this.value;
     }
+
+    @Override
+    public String toString() {
+        return "value={" + this.value + "}";
+    }
 }

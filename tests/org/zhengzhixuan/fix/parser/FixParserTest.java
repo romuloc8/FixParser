@@ -18,6 +18,12 @@ class FixParserTest {
                         + "\00152=20090107-18:15:16\00198=0"
                         + "\001108=30\00110=064\001")
                         .getBytes(StandardCharsets.US_ASCII);
+        String expectedString = "message={header={field={tag={8, BeginString},value={FIX.4.4}},"
+                + "field={tag={9, BodyLength},value={65}},field={tag={35, MsgType},value={A}}},"
+                + "body={field={tag={49, SenderCompID},value={SERVER}},field={tag={34, MsgSeqNum},"
+                + "value={177}},field={tag={98, EncryptMethod},value={0}},field={tag={52, SendingTime}," +
+                "value={20090107-18:15:16}},field={tag={56, TargetCompID},value={CLIENT}},"
+                + "field={tag={108, HeartBtInt},value={30}}}}";
         FixMessage message = parser.parse(bytes);
 
         assertEquals(message.getHeader().getBeginString().getTag().getTagNumber(), 8);
@@ -48,6 +54,9 @@ class FixParserTest {
         assertEquals(message.getBody().getFields().getLast().getTag().getTagNumber(), 108);
         assertEquals(message.getBody().getFields().getLast().getTag().getTagName(), "HeartBtInt");
         assertEquals(message.getBody().getFields().getLast().getValue().getValue(), "30");
+        assertEquals(message.toString(), expectedString);
+
+
     }
 
     @Test

@@ -34,4 +34,9 @@ public class FixFieldTag {
     public String getTagName() {
         return this.tagName;
     }
+
+    @Override
+    public String toString() {
+        return "tag={" + this.tagNumber + ", " + this.tagName + "}";
+    }
 }

@@ -22,4 +22,9 @@ public class FixMessage {
     public FixBody getBody() {
         return this.body;
     }
+
+    @Override
+    public String toString() {
+        return "message={" + this.header.toString() + "," + this.body.toString() + "}";
+    }
 }

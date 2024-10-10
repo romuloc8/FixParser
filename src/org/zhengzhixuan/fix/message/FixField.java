@@ -20,4 +20,9 @@ public class FixField {
     public FixFieldValue getValue() {
         return this.value;
     }
+
+    @Override
+    public String toString() {
+        return "field={" + this.tag.toString() + "," + this.value.toString() + "}";
+    }
 }

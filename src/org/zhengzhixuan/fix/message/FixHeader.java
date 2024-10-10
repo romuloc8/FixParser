@@ -43,4 +43,10 @@ public final class FixHeader {
     public FixField getMsgType() {
         return this.MsgType;
     }
+
+    @Override
+    public String toString() {
+        return "header={" + this.beginString.toString() + ","
+                + this.bodyLength.toString() + "," + this.MsgType.toString() + "}";
+    }
 }
