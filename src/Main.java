@@ -1,7 +1,3 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-
-import org.zhengzhixuan.fix.message.FixMessage;
 import org.zhengzhixuan.fix.parser.FixParser;
 
 import java.io.BufferedReader;
@@ -10,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws IOException {
