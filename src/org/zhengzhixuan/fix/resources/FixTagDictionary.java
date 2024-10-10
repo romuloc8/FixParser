@@ -13,7 +13,6 @@ public class FixTagDictionary {
     private final Map<Integer, String> tagDefinitions;
 
     private FixTagDictionary() throws IOException {
-        String property = System.getProperty("user.dir");
         Path csvPath = Paths.get(".\\src\\org\\zhengzhixuan\\fix\\resources\\FIX44TAG.csv");
 
         try {
@@ -32,10 +31,6 @@ public class FixTagDictionary {
             INSTANCE = new FixTagDictionary();
         }
         return INSTANCE;
-    }
-
-    public Map<Integer, String> getTagDefinitions() {
-        return this.tagDefinitions;
     }
 
     public String getTagNameByNumber(int number) {

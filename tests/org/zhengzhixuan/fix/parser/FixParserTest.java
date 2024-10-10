@@ -3,15 +3,12 @@ package org.zhengzhixuan.fix.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.zhengzhixuan.fix.message.FixMessage;
-
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class FixParserTest {
+    private final FixParser parser = FixParser.create();
 
     @Test
     public void parse_success() {
@@ -21,7 +18,7 @@ class FixParserTest {
                         + "\00152=20090107-18:15:16\00198=0"
                         + "\001108=30\00110=064\001")
                         .getBytes(StandardCharsets.US_ASCII);
-        FixMessage message = FixParser.parse(bytes);
+        FixMessage message = parser.parse(bytes);
 
         assertEquals(message.getHeader().getBeginString().getTag().getTagNumber(), 8);
         assertEquals(message.getHeader().getBeginString().getTag().getTagName(), "BeginString");
@@ -63,7 +60,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(exception.getMessage(), "Invalid FIX message, no Checksum tag found.");
     }
 
@@ -77,7 +74,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(),
                 "Invalid FIX message, received checksum does not match expected checksum.");
@@ -93,7 +90,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(), "Invalid FIX message, no BodyLength tag found.");
     }
@@ -108,7 +105,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(),
                 "Invalid FIX message, received body length does not match expected body length.");
@@ -121,7 +118,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(), "Invalid FIX message, no enough fields exist in the message.");
     }
@@ -136,7 +133,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(), "Invalid FIX message, header-required tags missing in the message.");
     }
@@ -151,7 +148,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(), "Invalid FIX message, invalid field INVALID seen in the message.");
     }
@@ -166,7 +163,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(), "Invalid FIX message, non-numeric tag AA seen in the message.");
     }
@@ -181,7 +178,7 @@ class FixParserTest {
                         .getBytes(StandardCharsets.US_ASCII);
 
         IllegalArgumentException exception =
-                assertThrows(IllegalArgumentException.class, () -> FixParser.parse(bytes));
+                assertThrows(IllegalArgumentException.class, () -> parser.parse(bytes));
         assertEquals(
                 exception.getMessage(), "Invalid FIX Message, invalid tag number 10000 seen in the message.");
     }

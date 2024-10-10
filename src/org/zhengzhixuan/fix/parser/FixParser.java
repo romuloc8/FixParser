@@ -16,11 +16,13 @@ public final class FixParser {
     // body and 1 field for trailer.
     private static final int MIN_NUM_OF_FIELDS = 5;
     private static final int NUM_OF_FIELDS_IN_HEADER = 3;
+    private static final FixParser INSTANCE = new FixParser();
 
-    private FixParser() {
-    }
+    private FixParser() {}
 
-    public static FixMessage parse(byte[] bytes) {
+    public static FixParser create() {return INSTANCE;}
+
+    public FixMessage parse(byte[] bytes) {
         checkChecksum(bytes);
         checkBodyLength(bytes);
         List<String> fieldStrings = divideIntoFields(bytes);
